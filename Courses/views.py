@@ -6,6 +6,10 @@ from rest_framework import status
 from .serializers import GetAllCoursesSerializer, CoursesSerializer
 from .models import Courses
 # Create your views here.
+from .services.services import CoursesService
+from django.http import JsonResponse
+
+
 class indexclass(View):
     def get(self, request):
         self.name = 'Stella'
@@ -35,3 +39,17 @@ class GetAllCourses(APIView):
             content1 = mydata.data['content1']
             cs = Courses.objects.create(title=title1, price=price1, content=content1)
             return Response(data=cs.id, status=status.HTTP_200_OK)
+
+
+
+
+
+def list_high_price(request):
+    courses = Courses.objects.all()
+    data = []
+    for c in courses:
+        if CoursesService.is_high_price(c.price):
+            data.append(c.to_json())
+
+    return JsonResponse({'data': data})
+

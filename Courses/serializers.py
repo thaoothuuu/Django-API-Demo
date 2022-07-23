@@ -4,7 +4,7 @@ from .models import Courses
 class GetAllCoursesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Courses
-        fields = ('id', 'title', )
+        fields = ('id', 'title', 'price',)
 
 
 class CoursesSerializer(serializers.Serializer):

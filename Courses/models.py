@@ -7,3 +7,14 @@ class Courses(models.Model):
     content = models.CharField(max_length=255)
 
 
+    def __int__(self):
+        return self.price
+
+    def to_json(self):
+        return {
+            'title': self.title,
+            'price': self.price,
+            'content': self.content,
+        }
+
+
